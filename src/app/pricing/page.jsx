@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import { Check, X } from "lucide-react";
 
@@ -99,7 +100,7 @@ export default function Pricing() {
           ))}
         </div>
 
-        <div className="flex flex-wrap justify-center gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 justify-center gap-8">
           {pricingPlans.map((plan) => (
             <div
               key={plan.name}
