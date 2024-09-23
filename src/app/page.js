@@ -1,101 +1,234 @@
+"use client";
+
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import Image from "next/image";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { DollarSign, Zap, Globe, CheckSquare } from "lucide-react";
+
+const features = [
+  {
+    title: "Affordable Fees",
+    description:
+      "Forget traditional law firms that charge over $2,000. Our transparent pricing starts at $399.",
+    icon: DollarSign,
+  },
+  {
+    title: "Streamlined Process",
+    description:
+      "A single order form instead of hours of back and forth — trademarking without compromise.",
+    icon: Zap,
+  },
+  {
+    title: "Global IP Coverage",
+    description:
+      "We can help you get a trademark in any jurisdiction, contact us for a custom quotation.",
+    icon: Globe,
+  },
+  {
+    title: "Free TM Assessment",
+    description:
+      "Send us your brand and we will check several basic trademark criteria for eligibility.",
+    icon: CheckSquare,
+  },
+];
+
+const images = ["/slide5.jpg", "/slide6.jpg", "/slide7.jpg"];
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.js
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [currentImage, setCurrentImage] = useState(0);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentImage((prevImage) => (prevImage + 1) % images.length);
+    }, 15000); // Change image every 15 seconds
+
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <div className="min-h-screen relative">
+      <main className="px-2 lg:px-0 max-w-[1550px] mx-auto">
+        <section className="relative w-full -z-10 h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
+          {images.map((src, index) => (
+            <div
+              key={src}
+              className={`absolute top-0 left-0 w-full h-full transition-opacity duration-1000 ease-in-out ${
+                index === currentImage ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              <Image
+                src={src}
+                alt={`Slide ${index + 1}`}
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                priority={100}
+                className="object-cover"
+              />
+            </div>
+          ))}
+          <div className="absolute top-0 left-0 w-full h-full flex flex-col items-center text-left justify-center text-white bg-black bg-opacity-50 p-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl xl:text-6xl font-bold mb-2 sm:mb-4">
+              You run your business.
+            </h2>
+            <p className="text-base sm:text-lg md:text-xl xl:text-3xl mb-4 sm:mb-6 md:mb-8 max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg">
+              We&apos;ll handle your legal affairs.{" "}
+            </p>
+            <Link href="#" className="cursor-pointer">
+              <Button
+                variant="secondary"
+                size="sm"
+                className="sm:text-base md:text-lg md:py-5 md:px-4"
+              >
+                Free Assessment
+              </Button>
+            </Link>
+          </div>
+        </section>
+        <section className="min-h-screen bg-[#b2d2a4] flex items-center justify-center py-12 px-4">
+          <div className="max-w-6xl w-full space-y-10">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center text-[#1a4314]">
+              Bulletproof your brand
+            </h1>
+            <p className="text-center pb-4 text-[#2c5e1a] text-lg max-w-3xl mx-auto">
+              Brand protection is essential for any business, big or small. We
+              differentiate your brand in a cost-effective and transparent way.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+              {/* Card 1 */}
+              <Card className="bg-white hover:border-[#32cd30] hover:border-2 rounded-3xl text-center shadow-lg hover:shadow-2xl transition-all duration-300 ease-in-out hover:scale-102 flex flex-col p-6">
+                <CardHeader>
+                  <CardTitle className="text-[#1a4314] text-2xl">
+                    Brand Monitoring
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="flex-grow flex flex-col justify-center">
+                  <p className="text-3xl font-bold text-[#2c5e1a]">
+                    from $20
+                    <span className="text-base font-normal">/month</span>
+                  </p>
+                  <p className="text-sm uppercase text-[#32cd30] mt-3 font-semibold">
+                    STOP COPYCATS
+                  </p>
+                  <p className="mt-6 text-[#2c5e1a] text-lg">
+                    Safeguard your brand with state of the art data intelligence
+                  </p>
+                </CardContent>
+                <CardFooter className="flex justify-center mt-6">
+                  <Link href="#">
+                    <Button
+                      variant="outline"
+                      className="w-auto px-8 py-3 rounded-full border-2 border-[#32cd30] text-[#32cd30] hover:bg-[#32cd30] hover:text-white text-lg"
+                    >
+                      Learn More
+                    </Button>
+                  </Link>
+                </CardFooter>
+              </Card>
+              {/* Card 2 */}
+              <Card className="bg-white border-[#32cd30] text-center border-2 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 ease-in-out hover:scale-102 flex flex-col p-6">
+                <CardHeader>
+                  <CardTitle className="text-[#1a4314] text-2xl">
+                    Trademark Registration
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="flex-grow flex flex-col justify-center">
+                  <p className="text-3xl font-bold text-[#2c5e1a]">from $600</p>
+                  <p className="text-sm uppercase text-[#32cd30] mt-3 font-semibold">
+                    REGISTRATION GUARANTEE
+                  </p>
+                  <p className="mt-6 text-[#2c5e1a] text-lg">
+                    The easiest and safest way to get your trademark registered
+                  </p>
+                </CardContent>
+                <CardFooter className="flex justify-center mt-6">
+                  <Link href="#">
+                    <Button className="w-auto px-8 py-3 rounded-full text-white bg-[#32cd30] border-2 border-transparent hover:text-[#32cd30] hover:bg-transparent hover:border-[#32cd30] text-lg">
+                      See Pricing
+                    </Button>
+                  </Link>
+                </CardFooter>
+              </Card>
+              {/* Card 3 */}
+              <Card className="bg-white hover:border-[#32cd30] hover:border-2 rounded-3xl text-center shadow-lg hover:shadow-2xl transition-all duration-300 ease-in-out hover:scale-102 flex flex-col p-6">
+                <CardHeader>
+                  <CardTitle className="text-[#1a4314] text-2xl">
+                    IP Support Services
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="flex-grow flex flex-col justify-center">
+                  <p className="text-3xl font-bold text-[#2c5e1a]">from $150</p>
+                  <p className="text-sm uppercase text-[#32cd30] mt-3 font-semibold">
+                    GET UNSTUCK
+                  </p>
+                  <p className="mt-6 text-[#2c5e1a] text-lg">
+                    Overcome trademark roadblocks with personalized care
+                  </p>
+                </CardContent>
+                <CardFooter className="flex justify-center mt-6">
+                  <Link href="#">
+                    <Button
+                      variant="outline"
+                      className="w-auto px-8 py-3 rounded-full border-2 border-[#32cd30] text-[#32cd30] hover:bg-[#32cd30] hover:text-white text-lg"
+                    >
+                      Learn More
+                    </Button>
+                  </Link>
+                </CardFooter>
+              </Card>
+            </div>
+          </div>
+        </section>
+        <section className="min-h-screen bg-gradient-to-br from-[#b2d2a4] to-[#2c5e1a] flex items-center justify-center p-8">
+          <div className="max-w-5xl w-full space-y-16">
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="text-center"
+            >
+              <h1 className="text-2xl md:text-4xl font-bold text-[#2c5e1a] mb-4">
+                Start your brand with confidence
+              </h1>
+              <p className="text-[#2c5e1a] font-medium max-w-2xl mx-auto">
+                Our company has a wealth of experience and efficient processes,
+                providing you with personalized support every step of the way
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {features.map((feature, index) => (
+                <motion.div
+                  key={feature.title}
+                  initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="bg-white bg-opacity-90 rounded-lg p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 border-l-4 border-[#32cd30]"
+                >
+                  <div className="flex items-center mb-4">
+                    <div className="bg-[#32cd30] p-2 rounded-full mr-4">
+                      <feature.icon className="w-6 h-6 text-white" />
+                    </div>
+                    <h2 className="text-xl font-semibold text-[#1a4314]">
+                      {feature.title}
+                    </h2>
+                  </div>
+                  <p className="text-[#2c5e1a]">{feature.description}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
     </div>
   );
 }
