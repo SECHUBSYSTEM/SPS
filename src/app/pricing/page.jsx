@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { Check, X } from "lucide-react";
 
 const countries = [
@@ -9,10 +10,10 @@ const countries = [
   "United Kingdom",
 ];
 
-const pricingPlans = [
+const basePricingPlans = [
   {
     name: "Basic",
-    price: 600,
+    basePrice: 600,
     features: [
       { name: "Unlimited consultations", included: true },
       { name: "Prepare & file application", included: true },
@@ -24,7 +25,7 @@ const pricingPlans = [
   },
   {
     name: "Value",
-    price: 1220,
+    basePrice: 1220,
     popular: true,
     features: [
       { name: "Unlimited consultations", included: true },
@@ -37,7 +38,7 @@ const pricingPlans = [
   },
   {
     name: "All-Inclusive",
-    price: 1830,
+    basePrice: 1830,
     features: [
       { name: "Unlimited consultations", included: true },
       { name: "Prepare & file application", included: true },
@@ -49,11 +50,32 @@ const pricingPlans = [
   },
 ];
 
+const priceAdjustments = {
+  Australia: 1,
+  "New Zealand": 0.9,
+  USA: 1.1,
+  Canada: 1,
+  "European Union": 1.2,
+  "United Kingdom": 1.15,
+};
+
 export default function Pricing() {
+  const [selectedCountry, setSelectedCountry] = useState("Canada");
+
+  const adjustPrice = (basePrice) => {
+    const adjustmentFactor = priceAdjustments[selectedCountry];
+    return Math.round(basePrice * adjustmentFactor);
+  };
+
+  const pricingPlans = basePricingPlans.map((plan) => ({
+    ...plan,
+    price: adjustPrice(plan.basePrice),
+  }));
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#b2d2a4] to-[#32cd30] p-8">
       <div className="max-w-6xl mx-auto">
-        <h1 className="text-4xl font-bold text-center mb-2">
+        <h1 className="text-4xl font-bold text-center mb-2 text-[#1a4314]">
           Rightangle Package Pricing
         </h1>
         <p className="text-center mb-8 text-[#1a4314]">
@@ -65,8 +87,9 @@ export default function Pricing() {
           {countries.map((country) => (
             <button
               key={country}
+              onClick={() => setSelectedCountry(country)}
               className={`px-4 py-2 rounded-full ${
-                country === "Canada"
+                country === selectedCountry
                   ? "bg-[#32cd30] text-white"
                   : "bg-white text-[#2c5e1a] hover:bg-[#2c5e1a] hover:text-white"
               } transition-colors duration-300`}
@@ -84,15 +107,17 @@ export default function Pricing() {
                 plan.popular ? "border-4 border-[#32cd30]" : ""
               }`}
             >
-              <h2 className="text-xl font-semibold mb-2">{plan.name}</h2>
+              <h2 className="text-xl font-semibold mb-2 text-[#2c5e1a]">
+                {plan.name}
+              </h2>
               {plan.popular && (
                 <span className="bg-[#32cd30] text-white text-xs px-2 py-1 rounded-full">
                   Popular
                 </span>
               )}
-              <div className="text-4xl font-bold my-4">
+              <div className="text-4xl font-bold my-4 text-[#1a4314]">
                 ${plan.price}
-                <span className="text-sm font-normal text-gray-600">
+                <span className="text-sm font-normal text-[#2c5e1a]">
                   +$220 government fee
                 </span>
               </div>
@@ -104,7 +129,11 @@ export default function Pricing() {
                     ) : (
                       <X className="text-red-500 mr-2" size={20} />
                     )}
-                    <span className={feature.included ? "" : "text-gray-400"}>
+                    <span
+                      className={
+                        feature.included ? "text-[#2c5e1a]" : "text-gray-400"
+                      }
+                    >
                       {feature.name}
                     </span>
                   </li>
