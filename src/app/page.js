@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import {
   Card,
@@ -10,10 +9,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { motion } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { DollarSign, Zap, Globe, CheckSquare } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 
 const features = [
   {
@@ -41,8 +40,26 @@ const features = [
     icon: CheckSquare,
   },
 ];
-
+//for the slides
 const images = ["/slide5.jpg", "/slide6.jpg", "/slide7.jpg"];
+
+const heroContent = [
+  {
+    title: "You run your business.",
+    subtitle: "We'll handle your legal affairs.",
+    cta: "Free Assessment",
+  },
+  {
+    title: "Protect your brand.",
+    subtitle: "Secure your future success.",
+    cta: "Get Started",
+  },
+  {
+    title: "Innovate with confidence.",
+    subtitle: "We've got your IP covered.",
+    cta: "Learn More",
+  },
+];
 
 export default function Home() {
   const [currentImage, setCurrentImage] = useState(0);
@@ -50,7 +67,7 @@ export default function Home() {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentImage((prevImage) => (prevImage + 1) % images.length);
-    }, 15000); // Change image every 15 seconds
+    }, 10000); // Change image every 10 seconds
 
     return () => clearInterval(timer);
   }, []);
@@ -58,7 +75,7 @@ export default function Home() {
   return (
     <div className="min-h-screen relative">
       <main className="px-2 lg:px-0 max-w-[1550px] mx-auto">
-        <section className="relative w-full -z-10 h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
+        <section className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
           {images.map((src, index) => (
             <div
               key={src}
@@ -71,27 +88,38 @@ export default function Home() {
                 alt={`Slide ${index + 1}`}
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                priority={100}
+                priority={index === 0}
                 className="object-cover"
               />
             </div>
           ))}
           <div className="absolute top-0 left-0 w-full h-full flex flex-col items-center text-left justify-center text-white bg-black bg-opacity-50 p-4">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl xl:text-6xl font-bold mb-2 sm:mb-4">
-              You run your business.
-            </h2>
-            <p className="text-base sm:text-lg md:text-xl xl:text-3xl mb-4 sm:mb-6 md:mb-8 max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg">
-              We&apos;ll handle your legal affairs.{" "}
-            </p>
-            <Link href="#" className="cursor-pointer">
-              <Button
-                variant="secondary"
-                size="sm"
-                className="sm:text-base md:text-lg md:py-5 md:px-4"
+            <AnimatePresence>
+              <motion.div
+                key={currentImage}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 1 }}
+                className="text-center"
               >
-                Free Assessment
-              </Button>
-            </Link>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl xl:text-6xl font-bold mb-2 sm:mb-4">
+                  {heroContent[currentImage].title}
+                </h2>
+                <p className="text-base sm:text-lg md:text-xl xl:text-3xl mb-4 sm:mb-6 md:mb-8 max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg">
+                  {heroContent[currentImage].subtitle}
+                </p>
+                <Link href="/contact" className="cursor-pointer">
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    className="sm:text-base md:text-lg md:py-5 md:px-4"
+                  >
+                    {heroContent[currentImage].cta}
+                  </Button>
+                </Link>
+              </motion.div>
+            </AnimatePresence>
           </div>
         </section>
         <section className="min-h-screen bg-[#b2d2a4] flex items-center justify-center py-12 px-4">

@@ -14,7 +14,7 @@ const menuItems = [
   },
   {
     name: "Services",
-    href: "/services",
+
     submenu: [
       { name: "Applications", href: "/applications" },
       { name: "Oppositions", href: "/oppositions" },
@@ -25,7 +25,7 @@ const menuItems = [
   { name: "Pricing", href: "/pricing" },
   {
     name: "Why Us",
-    href: "#",
+
     submenu: [
       { name: "About Us", href: "/about" },
       { name: "FAQ", href: "/faq" },

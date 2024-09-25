@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Globe, Users, Shield, Zap } from "lucide-react";
+import Link from "next/link";
 
 const colors = {
   limeGreen: "#32cd30",
@@ -135,14 +136,15 @@ export default function AboutUs() {
         <StatCounter value={99} label="Monitoring Accuracy %" />
         <StatCounter value={100} label="Registration Guarantee %" />
       </div>
-
-      <motion.button
-        className="bg-[#32cd30] text-white px-6 py-3 rounded-full font-bold"
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-      >
-        Contact Us
-      </motion.button>
+      <Link href="/contact">
+        <motion.button
+          className="bg-[#32cd30] text-white px-6 py-3 rounded-full font-bold"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          Contact Us
+        </motion.button>
+      </Link>
     </div>
   );
 }
