@@ -1,8 +1,5 @@
 import localFont from "next/font/local";
 import "./globals.css";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -15,7 +12,7 @@ const geistMono = localFont({
 });
 
 export const metadata = {
-  title: "Rightangle Law",
+  title: "Served Process Servers",
   description: "Excellence in legal solutions tailored to your needs",
 };
 
@@ -25,9 +22,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Navbar />
         {children}
-        <Footer />
       </body>
     </html>
   );
