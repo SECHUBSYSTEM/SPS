@@ -76,7 +76,7 @@ export default function CardNavigation() {
       content: (
         <div className="space-y-2">
           <h2 className="text-base mb-2">Contact Us</h2>
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <p className="text-xs">
                 <span className="font-bold">Mobile:</span> 0402 00 5522
@@ -97,12 +97,12 @@ export default function CardNavigation() {
               <p className="font-bold italic mt-4 text-sm">We Serve Better!</p>
             </div>
             <div className="space-y-2">
-              <Input placeholder="Your Name" className="h-7 text-xs" />
-              <Input placeholder="Your Email" className="h-7 text-xs" />
-              <Textarea placeholder="Your Message" className="h-20 text-xs" />
+              <Input placeholder="Your Name" className="h-6 text-xs" />
+              <Input placeholder="Your Email" className="h-6 text-xs" />
+              <Textarea placeholder="Your Message" className="h-16 text-xs" />
               <Button
                 variant="secondary"
-                className="w-full h-7 text-xs bg-gray-300 hover:bg-gray-400"
+                className="w-full h-6 text-xs bg-gray-300 hover:bg-gray-400"
               >
                 SEND MESSAGE
               </Button>
@@ -130,19 +130,19 @@ export default function CardNavigation() {
         backgroundPosition: "center",
       }}
     >
-      <div className="mx-auto w-[610px] h-[420px] relative">
-        {/* Stacked papers background - positioned behind cards */}
+      <div className="mx-auto w-[580px] h-[400px] relative">
+        {/* Stacked papers background */}
         <div
           className="absolute inset-0 z-0"
           style={{
             backgroundImage: 'url("/papers.png")',
-            backgroundSize: "cover",
+            backgroundSize: "contain",
             backgroundRepeat: "no-repeat",
           }}
         />
 
         {/* Navigation buttons */}
-        <div className="absolute right-0 top-10 flex flex-col gap-2 -mr-16 z-10">
+        <div className="absolute right-0 top-8 flex flex-col gap-2 -mr-14 z-10">
           {[
             { icon: Home, index: 0 },
             { icon: HelpCircle, index: 1 },
@@ -196,14 +196,15 @@ export default function CardNavigation() {
                 style={{
                   backgroundImage: 'url("/bg-main.png")',
                   backgroundRepeat: "no-repeat",
-                  height: "400px",
-                  overflow: "hidden",
-                  margin: "25px 0 0 22px",
+                  backgroundSize: "contain",
+                  height: "360px",
+                  width: "520px",
+                  margin: "20px 0 0 30px",
                 }}
               >
-                <div className="w-full my-4">
+                <div className="w-full mt-3 mb-2">
                   <div className="flex justify-center items-center">
-                    <div className="w-[90%]">
+                    <div className="w-[85%]">
                       <Image
                         src={logo}
                         alt="Served Process Servers"
@@ -215,7 +216,7 @@ export default function CardNavigation() {
                     </div>
                   </div>
                 </div>
-                <div className="px-4 text-gray-700">{page.content}</div>
+                <div className="px-6 text-gray-700">{page.content}</div>
               </Card>
             </motion.div>
           ))}
