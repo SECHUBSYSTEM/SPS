@@ -130,7 +130,7 @@ export default function CardNavigation() {
         backgroundPosition: "center",
       }}
     >
-      <div className="mx-auto w-[800px] h-[500px] relative">
+      <div className="mx-auto w-[610px] h-[420px] relative">
         {/* Stacked papers background - positioned behind cards */}
         <div
           className="absolute inset-0 z-0"
@@ -142,30 +142,32 @@ export default function CardNavigation() {
         />
 
         {/* Navigation buttons */}
-        <div className="absolute right-0 top-0 flex flex-col gap-2 -mr-12 z-10">
-          <button
-            className="bg-white p-2 rounded shadow-md hover:bg-gray-50"
-            onClick={() => handlePageChange(0)}
-            disabled={isAnimating}
-          >
-            <Home size={20} />
-          </button>
-          <button
-            className="bg-white p-2 rounded shadow-md hover:bg-gray-50"
-            onClick={() => handlePageChange(1)}
-            disabled={isAnimating}
-          >
-            <HelpCircle size={20} />
-          </button>
-          <button
-            className="bg-white p-2 rounded shadow-md hover:bg-gray-50"
-            onClick={() => handlePageChange(2)}
-            disabled={isAnimating}
-          >
-            <AtSign size={20} />
-          </button>
+        <div className="absolute right-0 top-10 flex flex-col gap-2 -mr-16 z-10">
+          {[
+            { icon: Home, index: 0 },
+            { icon: HelpCircle, index: 1 },
+            { icon: AtSign, index: 2 },
+          ].map(({ icon: Icon, index }) => (
+            <motion.button
+              key={index}
+              className="p-2 rounded shadow-md transition-colors duration-200"
+              onClick={() => handlePageChange(index)}
+              disabled={isAnimating}
+              whileHover={{ scale: activeIndex === index ? 1.2 : 1.1 }}
+              animate={{ scale: activeIndex === index ? 1.15 : 1 }}
+              transition={{ duration: 0.2 }}
+            >
+              <Icon
+                className={`rounded shadow-2xl transition-colors duration-200 ${
+                  activeIndex === index
+                    ? "text-[#8B0000] bg-transparent"
+                    : "bg-transparent text-white"
+                }`}
+                size={20}
+              />
+            </motion.button>
+          ))}
         </div>
-
         <AnimatePresence initial={false}>
           {pages.map((page, index) => (
             <motion.div
@@ -189,10 +191,19 @@ export default function CardNavigation() {
                 zIndex: { delay: index === activeIndex ? 0 : 0.5 },
               }}
             >
-              <Card className="w-full h-full p-4 bg-white/95 relative">
-                <div className="w-full mb-4">
+              <Card
+                className="w-full h-full border-0 outline-0 p-0 bg-transparent relative"
+                style={{
+                  backgroundImage: 'url("/bg-main.png")',
+                  backgroundRepeat: "no-repeat",
+                  height: "400px",
+                  overflow: "hidden",
+                  margin: "25px 0 0 22px",
+                }}
+              >
+                <div className="w-full my-4">
                   <div className="flex justify-center items-center">
-                    <div className="w-full">
+                    <div className="w-[90%]">
                       <Image
                         src={logo}
                         alt="Served Process Servers"
