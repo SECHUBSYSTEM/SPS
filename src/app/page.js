@@ -22,10 +22,8 @@ export default function CardNavigation() {
     {
       name: "Home",
       content: (
-        <div className="space-y-2">
-          <h2 className="text-base font-bold">
-            Welcome to Served Process Servers
-          </h2>
+        <div className="space-y-2 [font-family:'Comic_Sans_MS',sans-serif]">
+          <h2 className="text-base">Welcome to Served Process Servers</h2>
           <h3 className="text-sm">
             The Gold Coast&apos;s premier Process Serving company.
           </h3>
@@ -48,7 +46,7 @@ export default function CardNavigation() {
     {
       name: "About",
       content: (
-        <div className="space-y-2">
+        <div className="space-y-2 [font-family:'Comic_Sans_MS',sans-serif]">
           <h2 className="text-base mb-2">
             Legal Support Services ~ Process Serving
           </h2>
@@ -74,7 +72,7 @@ export default function CardNavigation() {
     {
       name: "Contact",
       content: (
-        <div className="space-y-2">
+        <div className="space-y-2 [font-family:'Comic_Sans_MS',sans-serif]">
           <h2 className="text-base mb-2">Contact Us</h2>
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
@@ -97,12 +95,21 @@ export default function CardNavigation() {
               <p className="font-bold italic mt-4 text-sm">We Serve Better!</p>
             </div>
             <div className="space-y-2">
-              <Input placeholder="Your Name" className="h-6 text-xs" />
-              <Input placeholder="Your Email" className="h-6 text-xs" />
-              <Textarea placeholder="Your Message" className="h-16 text-xs" />
+              <Input
+                placeholder="Your Name"
+                className="h-6 text-xs font-sans"
+              />
+              <Input
+                placeholder="Your Email"
+                className="h-6 text-xs font-sans"
+              />
+              <Textarea
+                placeholder="Your Message"
+                className="h-16 text-xs font-sans"
+              />
               <Button
                 variant="secondary"
-                className="w-full h-6 text-xs bg-gray-300 hover:bg-gray-400"
+                className="w-full h-6 text-xs bg-gray-300 hover:bg-gray-400 [font-family:'Comic_Sans_MS',sans-serif]"
               >
                 SEND MESSAGE
               </Button>
@@ -130,19 +137,19 @@ export default function CardNavigation() {
         backgroundPosition: "center",
       }}
     >
-      <div className="mx-auto w-[580px] h-[400px] relative">
+      <div className="mx-auto w-[650px] h-[450px] relative">
         {/* Stacked papers background */}
         <div
           className="absolute inset-0 z-0"
           style={{
             backgroundImage: 'url("/papers.png")',
-            backgroundSize: "contain",
+            backgroundSize: "100% 100%",
             backgroundRepeat: "no-repeat",
           }}
         />
 
         {/* Navigation buttons */}
-        <div className="absolute right-0 top-8 flex flex-col gap-2 -mr-14 z-10">
+        <div className="absolute right-0 top-12 flex flex-col gap-2 -mr-12 z-10">
           {[
             { icon: Home, index: 0 },
             { icon: HelpCircle, index: 1 },
@@ -196,15 +203,17 @@ export default function CardNavigation() {
                 style={{
                   backgroundImage: 'url("/bg-main.png")',
                   backgroundRepeat: "no-repeat",
-                  backgroundSize: "contain",
-                  height: "360px",
-                  width: "520px",
-                  margin: "20px 0 0 30px",
+                  backgroundSize: "100% 100%",
+                  height: "380px",
+                  width: "560px",
+                  transform: "scale(1.07)",
+                  transformOrigin: "center center",
+                  margin: "35px 0 0 45px",
                 }}
               >
                 <div className="w-full mt-3 mb-2">
                   <div className="flex justify-center items-center">
-                    <div className="w-[85%]">
+                    <div className="w-[90%] pt-4">
                       <Image
                         src={logo}
                         alt="Served Process Servers"
