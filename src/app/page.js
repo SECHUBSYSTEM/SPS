@@ -22,87 +22,87 @@ export default function CardNavigation() {
     {
       name: "Home",
       content: (
-        <div className="space-y-4">
-          <h2 className="text-xl font-bold">
+        <div className="space-y-2">
+          <h2 className="text-base font-bold">
             Welcome to Served Process Servers
           </h2>
-          <h3 className="text-lg">
+          <h3 className="text-sm">
             The Gold Coast&apos;s premier Process Serving company.
           </h3>
-          <p className="text-sm">
+          <p className="text-xs">
             We are specialists in the field of process serving providing the
             most effective and efficient service on the Gold Coast.
           </p>
-          <p className="text-sm">
+          <p className="text-xs">
             We are bound by the national privacy principles which ensures
             professionally prepared and delivered documents served on time.
           </p>
-          <p className="text-sm">We are a fully Licenced Commercial Agency.</p>
-          <p className="text-sm">
+          <p className="text-xs">We are a fully Licenced Commercial Agency.</p>
+          <p className="text-xs">
             We also hold a Private Investigator and Security Licence.
           </p>
-          <p className="font-bold italic mt-4">We serve you better!</p>
+          <p className="font-bold italic mt-4 text-sm">We serve you better!</p>
         </div>
       ),
     },
     {
       name: "About",
       content: (
-        <div className="space-y-3 text-sm">
-          <h2 className="text-lg mb-4">
+        <div className="space-y-2">
+          <h2 className="text-base mb-2">
             Legal Support Services ~ Process Serving
           </h2>
-          <p>
+          <p className="text-xs">
             We achieve prompt service of all legal documents for all sectors of
             the legal industry and general public.
           </p>
-          <p>
+          <p className="text-xs">
             We have an Australia-wide network of licenced affiliate process
             servers to call upon for instructions outside the Gold Coast Region.
             We are dedicated to confidentiality and our licenced agents act in
             accordance with the law and all court rules. Our clients are kept
             fully informed on all matters on a regular basis.
           </p>
-          <p>
+          <p className="text-xs">
             All documents are handled in the strictest of confidence. We pride
             ourselves on our professionalism and integrity.
           </p>
-          <p className="font-bold italic mt-4">Served On Time!</p>
+          <p className="font-bold italic mt-4 text-sm">Served On Time!</p>
         </div>
       ),
     },
     {
       name: "Contact",
       content: (
-        <div className="space-y-3 text-sm">
-          <h2 className="text-lg mb-4">Contact Us</h2>
-          <div className="grid grid-cols-2 gap-8">
+        <div className="space-y-2">
+          <h2 className="text-base mb-2">Contact Us</h2>
+          <div className="grid grid-cols-2 gap-6">
             <div className="space-y-2">
-              <p>
+              <p className="text-xs">
                 <span className="font-bold">Mobile:</span> 0402 00 5522
               </p>
-              <p>
+              <p className="text-xs">
                 <span className="font-bold">Email:</span> Roy@served.net.au
               </p>
-              <p>
+              <p className="text-xs">
                 <span className="font-bold">Website:</span> www.served.net.au
               </p>
-              <p>
+              <p className="text-xs">
                 <span className="font-bold">Post:</span>
                 <br />
                 PO Box 818
                 <br />
                 Tugun Qld 4224
               </p>
-              <p className="font-bold italic mt-4">We Serve Better!</p>
+              <p className="font-bold italic mt-4 text-sm">We Serve Better!</p>
             </div>
-            <div className="space-y-3">
-              <Input placeholder="Your Name" className="h-8 text-sm" />
-              <Input placeholder="Your Email" className="h-8 text-sm" />
-              <Textarea placeholder="Your Message" className="h-24 text-sm" />
+            <div className="space-y-2">
+              <Input placeholder="Your Name" className="h-7 text-xs" />
+              <Input placeholder="Your Email" className="h-7 text-xs" />
+              <Textarea placeholder="Your Message" className="h-20 text-xs" />
               <Button
                 variant="secondary"
-                className="w-full h-8 text-sm bg-gray-200"
+                className="w-full h-7 text-xs bg-gray-300 hover:bg-gray-400"
               >
                 SEND MESSAGE
               </Button>
@@ -130,15 +130,14 @@ export default function CardNavigation() {
         backgroundPosition: "center",
       }}
     >
-      <div className="mx-auto w-[640px] h-[460px] relative">
-        {/* Stacked papers background */}
+      <div className="mx-auto w-[800px] h-[500px] relative">
+        {/* Stacked papers background - positioned behind cards */}
         <div
-          className="absolute inset-0"
+          className="absolute inset-0 z-0"
           style={{
             backgroundImage: 'url("/papers.png")',
-            backgroundSize: "100% 100%",
+            backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
-            zIndex: 1,
           }}
         />
 
@@ -190,22 +189,22 @@ export default function CardNavigation() {
                 zIndex: { delay: index === activeIndex ? 0 : 0.5 },
               }}
             >
-              <Card className="w-full h-auto p-4 shadow-lg bg-slate-100 relative">
-                <div className="w-full mb-6 relative h-auto">
+              <Card className="w-full h-full p-4 bg-white/95 relative">
+                <div className="w-full mb-4">
                   <div className="flex justify-center items-center">
-                    <div className="flex-shrink-0">
+                    <div className="w-full">
                       <Image
                         src={logo}
                         alt="Served Process Servers"
-                        width={300}
-                        height={64}
-                        className="mx-auto"
+                        width={800}
+                        height={100}
+                        className="w-full h-auto object-contain"
                         priority
                       />
                     </div>
                   </div>
                 </div>
-                <div className="px-4 text-[#777777]">{page.content}</div>
+                <div className="px-4 text-gray-700">{page.content}</div>
               </Card>
             </motion.div>
           ))}
