@@ -39,7 +39,9 @@ export default function CardNavigation() {
           <p className="text-xs">
             We also hold a Private Investigator and Security Licence.
           </p>
-          <p className="font-bold italic mt-4 text-sm">We serve you better!</p>
+          <p className="items-center text-center italic mt-4 text-sm">
+            We serve you better!
+          </p>
         </div>
       ),
     },
@@ -65,7 +67,9 @@ export default function CardNavigation() {
             All documents are handled in the strictest of confidence. We pride
             ourselves on our professionalism and integrity.
           </p>
-          <p className="font-bold italic mt-4 text-sm">Served On Time!</p>
+          <p className=" items-center text-center italic mt-4 text-sm">
+            Served On Time!
+          </p>
         </div>
       ),
     },
@@ -92,7 +96,9 @@ export default function CardNavigation() {
                 <br />
                 Tugun Qld 4224
               </p>
-              <p className="font-bold italic mt-4 text-sm">We Serve Better!</p>
+              <p className="items-center text-center italic mt-4 text-sm">
+                We Serve Better!
+              </p>
             </div>
             <div className="space-y-2">
               <Input
@@ -129,22 +135,21 @@ export default function CardNavigation() {
   };
 
   return (
-    <div
-      className="relative flex flex-col justify-center items-center min-h-screen"
-      style={{
-        backgroundImage: 'url("/bg-body.jpg")',
-        backgroundRepeat: "repeat",
-        backgroundPosition: "center",
-      }}
-    >
-      <div className="mx-auto w-[650px] h-[450px] relative">
+    <div className="fixed inset-0 flex flex-col justify-center items-center overflow-hidden">
+      <div
+        className="absolute inset-0 bg-repeat bg-center"
+        style={{
+          backgroundImage: 'url("/bg-body.jpg")',
+        }}
+      />
+
+      <div className="relative w-[650px] h-[450px] max-w-[95vw] max-h-[90vh]">
         {/* Stacked papers background */}
         <div
-          className="absolute inset-0 z-0"
+          className="absolute inset-0 bg-no-repeat"
           style={{
             backgroundImage: 'url("/papers.png")',
             backgroundSize: "100% 100%",
-            backgroundRepeat: "no-repeat",
           }}
         />
 
@@ -175,6 +180,7 @@ export default function CardNavigation() {
             </motion.button>
           ))}
         </div>
+
         <AnimatePresence initial={false}>
           {pages.map((page, index) => (
             <motion.div
@@ -199,7 +205,7 @@ export default function CardNavigation() {
               }}
             >
               <Card
-                className="w-full h-full border-0 outline-0 p-0 bg-transparent relative"
+                className="absolute border-0 outline-0 p-0 bg-transparent"
                 style={{
                   backgroundImage: 'url("/bg-main.png")',
                   backgroundRepeat: "no-repeat",
@@ -213,7 +219,7 @@ export default function CardNavigation() {
               >
                 <div className="w-full mt-3 mb-2">
                   <div className="flex justify-center items-center">
-                    <div className="w-[90%] pt-4">
+                    <div className="w-[90%] pt-2">
                       <Image
                         src={logo}
                         alt="Served Process Servers"
@@ -225,7 +231,9 @@ export default function CardNavigation() {
                     </div>
                   </div>
                 </div>
-                <div className="px-6 text-gray-700">{page.content}</div>
+                <div className="px-6 text-gray-700 overflow-y-auto max-h-[calc(100%-120px)]">
+                  {page.content}
+                </div>
               </Card>
             </motion.div>
           ))}
