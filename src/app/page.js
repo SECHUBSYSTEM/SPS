@@ -84,7 +84,7 @@ export default function CardNavigation() {
                 <span className="font-bold">Mobile:</span> 0402 00 5522
               </p>
               <p className="text-xs">
-                <span className="font-bold">Email:</span> Roy@served.net.au
+                <span className="font-bold">Email:</span> Rod@served.net.au
               </p>
               <p className="text-xs">
                 <span className="font-bold">Website:</span> www.served.net.au
@@ -150,6 +150,7 @@ export default function CardNavigation() {
           style={{
             backgroundImage: 'url("/papers.png")',
             backgroundSize: "100% 100%",
+            filter: "drop-shadow(8px 28px 10px rgba(0, 0, 0, 0.8))",
           }}
         />
 
