@@ -173,7 +173,7 @@ export default function CardNavigation() {
               index: 2,
             },
           ].map(({ bgImage, activeImage, index }) => (
-            <div key={index} className="relative py-2">
+            <div key={index} className="relative py-0">
               {/* Background paper image */}
               <div
                 className="absolute inset-0 bg-no-repeat mt-4 bg-center"
