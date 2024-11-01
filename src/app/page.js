@@ -154,31 +154,65 @@ export default function CardNavigation() {
           }}
         />
 
-        {/* Navigation buttons */}
-        <div className="absolute right-0 top-12 flex flex-col gap-2 -mr-12 z-10">
+        {/* Navigation buttons with stacked paper effect */}
+        <div className="absolute right-0 top-12 flex flex-col gap-0 -mr-3 z-0">
           {[
-            { icon: Home, index: 0 },
-            { icon: HelpCircle, index: 1 },
-            { icon: AtSign, index: 2 },
-          ].map(({ icon: Icon, index }) => (
-            <motion.button
-              key={index}
-              className="p-2 rounded shadow-md transition-colors duration-200"
-              onClick={() => handlePageChange(index)}
-              disabled={isAnimating}
-              whileHover={{ scale: activeIndex === index ? 1.2 : 1.1 }}
-              animate={{ scale: activeIndex === index ? 1.15 : 1 }}
-              transition={{ duration: 0.2 }}
-            >
-              <Icon
-                className={`rounded shadow-2xl transition-colors duration-200 ${
-                  activeIndex === index
-                    ? "text-[#8B0000] bg-transparent"
-                    : "bg-transparent text-white"
-                }`}
-                size={20}
+            {
+              bgImage: "/nav-home.png",
+              activeImage: "/nav-home-active.png",
+              index: 0,
+            },
+            {
+              bgImage: "/nav-about.png",
+              activeImage: "/nav-about-active.png",
+              index: 1,
+            },
+            {
+              bgImage: "/nav-work.png",
+              activeImage: "/nav-work-active.png",
+              index: 2,
+            },
+          ].map(({ bgImage, activeImage, index }) => (
+            <div key={index} className="relative py-2">
+              {/* Background paper image */}
+              <div
+                className="absolute inset-0 bg-no-repeat mt-4 bg-center"
+                style={{
+                  backgroundImage: `url(${bgImage})`,
+                  width: "50px",
+                  height: "35px",
+                  transform: "scale(1.08)",
+                  filter: "drop-shadow(2px 4px 3px rgba(0, 0, 0, 0.3))",
+                }}
               />
-            </motion.button>
+
+              {/* Active image overlay */}
+              <motion.div
+                className="absolute inset-0 bg-no-repeat mt-4 bg-center"
+                style={{
+                  backgroundImage: `url(${activeImage})`,
+                  width: "50px",
+                  height: "35px",
+                  opacity: activeIndex === index ? 1 : 0,
+                  transform: "scale(1.08)",
+                }}
+                animate={{
+                  opacity: activeIndex === index ? 1 : 0,
+                  x: activeIndex === index ? 5 : 0,
+                  scale: activeIndex === index ? 1.15 : 1.08,
+                }}
+                transition={{ duration: 0.2 }}
+              />
+
+              {/* Clickable area */}
+              <motion.button
+                className="relative z-0 w-[50px] h-[35px] mt-4"
+                onClick={() => handlePageChange(index)}
+                disabled={isAnimating}
+                whileHover={{ scale: 1.1 }}
+                transition={{ duration: 0.2 }}
+              />
+            </div>
           ))}
         </div>
 
@@ -206,7 +240,7 @@ export default function CardNavigation() {
               }}
             >
               <Card
-                className="absolute border-0 outline-0 p-0 bg-transparent"
+                className="absolute border-0 z-10 outline-0 p-0 bg-transparent"
                 style={{
                   backgroundImage: 'url("/bg-main.png")',
                   backgroundRepeat: "no-repeat",
