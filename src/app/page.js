@@ -77,26 +77,26 @@ export default function CardNavigation() {
       name: "Contact",
       content: (
         <div className="space-y-2 [font-family:'Comic_Sans_MS',sans-serif]">
-          <h2 className="text-base mb-2">Contact Us</h2>
+          <h2 className="text-base mb-2 text-black">Contact Us</h2>
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <p className="text-xs">
-                <span className="font-bold">Mobile:</span> 0402 00 5522
+                <span className="font-bold pr-2.5">Mobile:</span> 0402 00 5522
               </p>
               <p className="text-xs">
-                <span className="font-bold">Email:</span> Rod@served.net.au
+                <span className="font-bold pr-4">Email:</span> Rod@served.net.au
               </p>
               <p className="text-xs">
                 <span className="font-bold">Website:</span> www.served.net.au
               </p>
-              <p className="text-xs">
-                <span className="font-bold">Post:</span>
+              <p className="text-xs flex  items-center">
+                <span className="font-bold pr-7">Post:</span>
                 <br />
                 PO Box 818
                 <br />
                 Tugun Qld 4224
               </p>
-              <p className="items-center text-center italic mt-4 text-sm">
+              <p className="items-center text-center text-black italic pt-4 mt-4 text-sm">
                 We Serve Better!
               </p>
             </div>
@@ -146,7 +146,7 @@ export default function CardNavigation() {
       <div className="relative w-[650px] h-[450px] max-w-[95vw] max-h-[90vh]">
         {/* Stacked papers background */}
         <div
-          className="absolute inset-0 bg-no-repeat"
+          className="absolute inset-0 bg-no-repeat z-0"
           style={{
             backgroundImage: 'url("/papers.png")',
             backgroundSize: "100% 100%",
@@ -155,7 +155,7 @@ export default function CardNavigation() {
         />
 
         {/* Navigation buttons with stacked paper effect */}
-        <div className="absolute right-0 top-12 flex flex-col gap-0 -mr-3 z-0">
+        <div className="absolute right-0 top-12 flex flex-col gap-0 -mr-[1rem] z-10">
           {[
             {
               bgImage: "/nav-home.png",
@@ -206,7 +206,7 @@ export default function CardNavigation() {
 
               {/* Clickable area */}
               <motion.button
-                className="relative z-0 w-[50px] h-[35px] mt-4"
+                className="relative z-20 w-[50px] h-[35px] mt-4 cursor-pointer"
                 onClick={() => handlePageChange(index)}
                 disabled={isAnimating}
                 whileHover={{ scale: 1.1 }}
@@ -240,7 +240,7 @@ export default function CardNavigation() {
               }}
             >
               <Card
-                className="absolute border-0 z-10 outline-0 p-0 bg-transparent"
+                className="absolute border-0 z-20 outline-0 p-0 bg-transparent"
                 style={{
                   backgroundImage: 'url("/bg-main.png")',
                   backgroundRepeat: "no-repeat",
