@@ -22,9 +22,9 @@ export default function CardNavigation() {
     {
       name: "Home",
       content: (
-        <div className="space-y-2 [font-family:'Comic_Sans_MS',sans-serif]">
-          <h2 className="text-base">Welcome to Served Process Servers</h2>
-          <h3 className="text-sm">
+        <div className="space-y-2 flex text-[#777777] flex-col [font-family:'Comic_Sans_MS',sans-serif]">
+          <h2 className="text-sm md:text-lg 2xl:text-xl text-black self-center">Welcome to Served Process Servers</h2>
+          <h3 className="text-sm md:text-lg 2xl:text-xl text-black self-center">
             The Gold Coast&apos;s premier Process Serving company.
           </h3>
           <p className="text-xs">
@@ -39,7 +39,7 @@ export default function CardNavigation() {
           <p className="text-xs">
             We also hold a Private Investigator and Security Licence.
           </p>
-          <p className="items-center text-center italic mt-4 text-sm">
+          <p className="items-center text-center mt-4 text-sm md:text-lg 2xl:text-xl text-black">
             We serve you better!
           </p>
         </div>
@@ -48,8 +48,8 @@ export default function CardNavigation() {
     {
       name: "About",
       content: (
-        <div className="space-y-2 [font-family:'Comic_Sans_MS',sans-serif]">
-          <h2 className="text-base mb-2">
+        <div className="space-y-2 text-[#777777] flex flex-col [font-family:'Comic_Sans_MS',sans-serif]">
+          <h2 className="text-base md:text-lg 2xl:text-xl self-center text-black mb-2">
             Legal Support Services ~ Process Serving
           </h2>
           <p className="text-xs">
@@ -67,7 +67,7 @@ export default function CardNavigation() {
             All documents are handled in the strictest of confidence. We pride
             ourselves on our professionalism and integrity.
           </p>
-          <p className=" items-center text-center italic mt-4 text-sm">
+          <p className="items-center text-center text-black mt-4 text-sm md:text-lg 2xl:text-xl">
             Served On Time!
           </p>
         </div>
@@ -76,9 +76,10 @@ export default function CardNavigation() {
     {
       name: "Contact",
       content: (
-        <div className="space-y-2 [font-family:'Comic_Sans_MS',sans-serif]">
-          <h2 className="text-base mb-2 text-black">Contact Us</h2>
-          <div className="grid grid-cols-2 gap-4">
+        <div className="space-y-2 grid gap-6 grid-cols-2 text-[#777777]  [font-family:'Comic_Sans_MS',sans-serif]">
+        <div className="flex flex-col">
+           <h2 className="text-base md:text-lg self-center 2xl:text-xl mb-2 text-black">Contact Us</h2>
+          <div className="">
             <div className="space-y-2">
               <p className="text-xs">
                 <span className="font-bold pr-2.5">Mobile:</span> 0402 00 5522
@@ -89,18 +90,21 @@ export default function CardNavigation() {
               <p className="text-xs">
                 <span className="font-bold">Website:</span> www.served.net.au
               </p>
-              <p className="text-xs flex  items-center">
+              <p className="text-xs flex items-center">
                 <span className="font-bold pr-7">Post:</span>
                 <br />
                 PO Box 818
                 <br />
                 Tugun Qld 4224
               </p>
-              <p className="items-center text-center text-black italic pt-4 mt-4 text-sm">
+              <p className="items-center text-center text-black pt-4 mt-4 text-sm md:text-lg 2xl:text-xl">
                 We Serve Better!
               </p>
             </div>
-            <div className="space-y-2">
+          
+          </div>
+          </div>
+          <div className="space-y-2">
               <Input
                 placeholder="Your Name"
                 className="h-6 text-xs font-sans"
@@ -115,12 +119,11 @@ export default function CardNavigation() {
               />
               <Button
                 variant="secondary"
-                className="w-full h-6 text-xs bg-gray-300 hover:bg-gray-400 [font-family:'Comic_Sans_MS',sans-serif]"
+                className="w-full h-6 text-xs bg-[#555555] text-white/60 hover:bg-[#555555] hover:text-white/90 [font-family:'Comic_Sans_MS',sans-serif]"
               >
                 SEND MESSAGE
               </Button>
             </div>
-          </div>
         </div>
       ),
     },
@@ -135,7 +138,7 @@ export default function CardNavigation() {
   };
 
   return (
-    <div className="fixed inset-0 flex flex-col justify-center items-center overflow-hidden">
+    <div className="fixed inset-0 flex flex-col justify-center items-center overflow-y-scroll overflow-x-hidden">
       <div
         className="absolute inset-0 bg-repeat bg-center"
         style={{
@@ -155,7 +158,7 @@ export default function CardNavigation() {
         />
 
         {/* Navigation buttons with stacked paper effect */}
-        <div className="absolute right-0 top-12 flex flex-col gap-0 -mr-[1rem] z-10">
+        <div className="absolute right-0 top-12 flex flex-col gap-[1/2] -mr-[1.05rem]">
           {[
             {
               bgImage: "/nav-home.png",
