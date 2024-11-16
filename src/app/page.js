@@ -25,7 +25,7 @@ export default function CardNavigation() {
         <div className="flex space-y-1 text-[#777777] flex-col [font-family:'Comic_Sans_MS',sans-serif]">
           <h2 className="text-sm md:text-lg 2xl:text-xl text-black self-center">Welcome to Served Process Servers</h2>
           <h3 className="text-sm md:text-lg 2xl:text-xl text-black text-center self-center">
-            The Gold Coast&apos;s and Northern New South Wales premier Process Serving company.
+            The Gold Coast and Northern New South Wales premier Process Serving company.
           </h3>
           <p className="text-sm">
           We are specialists in the field of process serving providing the most
