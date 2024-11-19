@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import logo from "../../public/bg-header.png";
+import ContactForm from "@/components/contactForm";
 
 export default function CardNavigation() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -77,55 +78,7 @@ South Wales.
     {
       name: "Contact",
       content: (
-        <div className="space-y-2 grid gap-6 grid-cols-2 text-[#777777]  [font-family:'Comic_Sans_MS',sans-serif]">
-        <div className="flex flex-col">
-           <h2 className="text-base md:text-lg self-center 2xl:text-xl mb-2 text-black">Contact Us</h2>
-          <div className="">
-            <div className="space-y-2">
-              <p className="text-sm">
-                <span className="font-bold pr-2.5">Mobile:</span> 0402 00 5522
-              </p>
-              <p className="text-sm">
-                <span className="font-bold pr-4">Email:</span> Rod@served.net.au
-              </p>
-              <p className="text-sm">
-                <span className="font-bold">Website:</span> www.served.net.au
-              </p>
-              <p className="text-sm flex items-center">
-                <span className="font-bold pr-7">Post:</span>
-                <br />
-                PO Box 818
-                <br />
-                Tugun Qld 4224
-              </p>
-              <p className="items-center text-center text-black pt-4 mt-4 text-sm md:text-lg 2xl:text-xl">
-                We Serve Better!
-              </p>
-            </div>
-          
-          </div>
-          </div>
-          <div className="space-y-2">
-              <Input
-                placeholder="Your Name"
-                className="h-6 text-sm font-sans"
-              />
-              <Input
-                placeholder="Your Email"
-                className="h-6 text-sm font-sans"
-              />
-              <Textarea
-                placeholder="Your Message"
-                className="h-16 text-sm font-sans"
-              />
-              <Button
-                variant="secondary"
-                className="w-full h-6 text-sm bg-[#555555] text-white/60 hover:bg-[#555555] hover:text-white/90 [font-family:'Comic_Sans_MS',sans-serif]"
-              >
-                SEND MESSAGE
-              </Button>
-            </div>
-        </div>
+       <ContactForm />
       ),
     },
   ];
