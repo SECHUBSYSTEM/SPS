@@ -27,4 +27,5 @@ const nextConfig = {
     }
 };
 
-module.exports = nextConfig;
+// ES module export
+export default nextConfig;
