@@ -1,6 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    // Remove output: "export" if you want to use API routes
     images: {
         unoptimized: true,
     },
@@ -27,5 +26,5 @@ const nextConfig = {
     }
 };
 
-// ES module export
+
 export default nextConfig;
