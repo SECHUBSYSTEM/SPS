@@ -9,33 +9,54 @@ export default function ContactForm() {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState('');
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
     setStatus('Sending...');
 
     try {
-      const response = await fetch('/api/contact', {
+      //  relative URL that works everywhere
+      const apiUrl = '/api/contact';
+
+      console.log('Sending request to:', apiUrl); // Debug log
+
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
         },
-        body: JSON.stringify({ name, email, message }),
+        body: JSON.stringify({ 
+          name, 
+          email, 
+          message 
+        }),
       });
 
-      if (response.ok) {
-        setStatus('Message sent successfully!');
-        // Reset form
-        setName('');
-        setEmail('');
-        setMessage('');
-      } else {
-        const errorData = await response.json();
-        setStatus(errorData.message || 'Failed to send message');
+      console.log('Response status:', response.status); // Debug log
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => null);
+        throw new Error(
+          errorData?.error || 
+          `HTTP error! status: ${response.status}`
+        );
       }
+
+      const data = await response.json();
+      setStatus('Message sent successfully!');
+      // Reset form
+      setName('');
+      setEmail('');
+      setMessage('');
     } catch (error) {
-      setStatus('An error occurred. Please try again.');
-      console.error('Contact form submission error:', error);
+      console.error('Contact form error:', error);
+      setStatus(
+        error.message || 'An error occurred. Please try again.'
+      );
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -66,6 +87,7 @@ export default function ContactForm() {
         </div>
       </div>
       
+      
       <form onSubmit={handleSubmit} className="space-y-2">
         <Input
           placeholder="Your Name"
@@ -73,6 +95,7 @@ export default function ContactForm() {
           onChange={(e) => setName(e.target.value)}
           className="h-6 text-sm font-sans"
           required
+          disabled={isSubmitting}
         />
         <Input
           type="email"
@@ -81,6 +104,7 @@ export default function ContactForm() {
           onChange={(e) => setEmail(e.target.value)}
           className="h-6 text-sm font-sans"
           required
+          disabled={isSubmitting}
         />
         <Textarea
           placeholder="Your Message"
@@ -88,16 +112,24 @@ export default function ContactForm() {
           onChange={(e) => setMessage(e.target.value)}
           className="h-16 text-sm font-sans"
           required
+          disabled={isSubmitting}
         />
         <Button
           type="submit"
           variant="secondary"
           className="w-full h-6 text-sm bg-[#555555] text-white/60 hover:bg-[#555555] hover:text-white/90 [font-family:'Comic_Sans_MS',sans-serif]"
+          disabled={isSubmitting}
         >
-          SEND MESSAGE
+          {isSubmitting ? 'SENDING...' : 'SEND MESSAGE'}
         </Button>
         {status && (
-          <p className="text-center text-sm mt-2">
+          <p className={`text-center text-sm mt-2 ${
+            status.includes('error') || status.includes('failed') 
+              ? 'text-red-500' 
+              : status.includes('success') 
+                ? 'text-green-500' 
+                : ''
+          }`}>
             {status}
           </p>
         )}
