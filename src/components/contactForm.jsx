@@ -16,10 +16,10 @@ export default function ContactForm() {
     setStatus('Sending...');
 
     try {
-      //  relative URL that works everywhere
-      const apiUrl = '/api/contact';
-
-      console.log('Sending request to:', apiUrl); // Debug log
+      // Using absolute URL to avoid CORS issues
+      const apiUrl = `${process.env.NEXT_PUBLIC_API_URL || ''}/api/contact`;
+      
+      console.log('Sending request to:', apiUrl);
 
       const response = await fetch(apiUrl, {
         method: 'POST',
@@ -27,6 +27,7 @@ export default function ContactForm() {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
         },
+        credentials: 'same-origin', // for same-origin requests
         body: JSON.stringify({ 
           name, 
           email, 
@@ -34,17 +35,14 @@ export default function ContactForm() {
         }),
       });
 
-      console.log('Response status:', response.status); // Debug log
-
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => null);
-        throw new Error(
-          errorData?.error || 
-          `HTTP error! status: ${response.status}`
-        );
-      }
+      console.log('Response status:', response.status);
 
       const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.error || `HTTP error! status: ${response.status}`);
+      }
+
       setStatus('Message sent successfully!');
       // Reset form
       setName('');
