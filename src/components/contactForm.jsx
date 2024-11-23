@@ -10,6 +10,8 @@ export default function ContactForm() {
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -20,6 +22,7 @@ export default function ContactForm() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
         },
         body: JSON.stringify({ 
           name, 
@@ -28,12 +31,15 @@ export default function ContactForm() {
         }),
       });
   
-      const data = await response.json();
-      
       if (!response.ok) {
-        throw new Error(data.error || `HTTP error! status: ${response.status}`);
+        const errorData = await response.json().catch(() => null);
+        throw new Error(
+          errorData?.error || 
+          `HTTP error! status: ${response.status}`
+        );
       }
   
+      const data = await response.json();
       setStatus('Message sent successfully!');
       // Reset form
       setName('');
@@ -41,7 +47,9 @@ export default function ContactForm() {
       setMessage('');
     } catch (error) {
       console.error('Contact form error:', error);
-      setStatus(error.message || 'An error occurred. Please try again.');
+      setStatus(
+        error.message || 'An error occurred. Please try again.'
+      );
     } finally {
       setIsSubmitting(false);
     }

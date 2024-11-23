@@ -1,43 +1,38 @@
 // middleware.js
 import { NextResponse } from 'next/server';
 
-// List of allowed origins
-const allowedOrigins = [
-  'https://served.net.au',
-  'https://www.served.net.au',
-  'https://servednetau.vercel.app' // Add your Vercel URL here
-];
-
 export function middleware(request) {
-  // Get the origin from the request headers
-  const origin = request.headers.get('origin');
+  // Get origin for response headers
+  const origin = request.headers.get("origin") || "";
+  const allowedOrigins = ['https://served.net.au', 'https://www.served.net.au', 'https://servednetau.vercel.app'];
   
-  // Option 1: Allow known origins
-  if (origin && allowedOrigins.includes(origin)) {
-    // Return new response
-    return NextResponse.next({
+  // Handle preflight requests (OPTIONS)
+  if (request.method === 'OPTIONS') {
+    return new NextResponse(null, {
+      status: 204,
       headers: {
-        'Access-Control-Allow-Origin': origin,
-        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-        'Access-Control-Allow-Credentials': 'true',
+        'Access-Control-Allow-Origin': allowedOrigins.includes(origin) ? origin : '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization, Accept, Origin, X-Requested-With',
         'Access-Control-Max-Age': '86400',
+        'Access-Control-Allow-Credentials': 'true',
       },
     });
   }
 
-  // Option 2: Allow all origins
-  return NextResponse.next({
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-      'Access-Control-Max-Age': '86400',
-    },
-  });
+  // Handle actual request
+  const response = NextResponse.next();
+  
+  // Add CORS headers to response
+  response.headers.set('Access-Control-Allow-Origin', allowedOrigins.includes(origin) ? origin : '*');
+  response.headers.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization, Accept, Origin, X-Requested-With');
+  response.headers.set('Access-Control-Allow-Credentials', 'true');
+
+  return response;
 }
 
-// Configure middleware to run only for API routes
+// Only run middleware on API routes
 export const config = {
   matcher: '/api/:path*',
 };

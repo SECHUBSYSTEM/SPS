@@ -3,7 +3,14 @@ const nextConfig = {
     images: {
       unoptimized: true,
     },
-    // Remove the headers configuration since we're handling it in middleware
+    async rewrites() {
+      return [
+        {
+          source: '/api/:path*',
+          destination: '/api/:path*',
+        },
+      ];
+    },
   };
   
   export default nextConfig;
