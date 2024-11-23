@@ -1,21 +1,44 @@
+// app/api/contact/route.js
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
-// error handling for missing API key
+// Error handling for missing API key
 if (!process.env.RESEND_API_KEY) {
   throw new Error('Missing RESEND_API_KEY environment variable');
 }
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+// Add OPTIONS handler for CORS preflight
+export async function OPTIONS() {
+  return NextResponse.json(
+    {},
+    {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Accept',
+        'Access-Control-Max-Age': '86400',
+      },
+    }
+  );
+}
+
 export async function POST(request) {
   try {
+    // Add CORS headers to the response
+    const headers = {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Accept',
+    };
+
     const { name, email, message } = await request.json();
-    
+
     if (!name || !email || !message) {
       return NextResponse.json(
         { error: 'Name, email, and message are required' },
-        { status: 400 }
+        { status: 400, headers }
       );
     }
 
@@ -34,18 +57,28 @@ export async function POST(request) {
     });
 
     if (error) {
-      return NextResponse.json({ error: error.message }, { status: 400 });
+      return NextResponse.json(
+        { error: error.message },
+        { status: 400, headers }
+      );
     }
 
     return NextResponse.json(
       { message: 'Email sent successfully', data },
-      { status: 200 }
+      { status: 200, headers }
     );
   } catch (error) {
     console.error('Error sending email:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
-      { status: 500 }
+      { 
+        status: 500,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'POST, OPTIONS',
+          'Access-Control-Allow-Headers': 'Content-Type, Accept',
+        }
+      }
     );
   }
 }
