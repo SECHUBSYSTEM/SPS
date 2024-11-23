@@ -64,7 +64,7 @@ export default function ContactForm() {
             <span className="font-bold pr-2.5">Mobile:</span> 0402 00 5522
           </p>
           <p className="text-sm">
-            <span className="font-bold pr-4">Email:</span> Rod.com.au@gmail.com.au
+            <span className="font-bold pr-4">Email:</span> Rod.com.au@gmail.com
           </p>
           <p className="text-sm">
             <span className="font-bold">Website:</span> www.served.net.au
