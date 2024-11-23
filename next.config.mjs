@@ -7,7 +7,7 @@ const nextConfig = {
       return [
         {
           source: '/api/:path*',
-          destination: 'https://served.net.au/api/:path*',  // Update with actual API URL
+          destination: 'https://served.net.au/api/:path*',
         },
       ];
     },
