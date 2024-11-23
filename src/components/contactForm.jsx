@@ -16,7 +16,7 @@ export default function ContactForm() {
     setStatus('Sending...');
 
     try {
-      const apiUrl = 'https://served.net.au/api/contact';
+      const apiUrl = 'https://served.net.au';
 
       console.log('Sending request to:', apiUrl);
 
