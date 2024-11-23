@@ -16,9 +16,10 @@ export default function ContactForm() {
     setStatus('Sending...');
 
     try {
-      const apiUrl = 'https://served.net.au/api';
+      //  relative URL that works everywhere
+      const apiUrl = '/api/contact';
 
-      console.log('Sending request to:', apiUrl);
+      console.log('Sending request to:', apiUrl); // Debug log
 
       const response = await fetch(apiUrl, {
         method: 'POST',
@@ -33,7 +34,7 @@ export default function ContactForm() {
         }),
       });
 
-      console.log('Response status:', response.status);
+      console.log('Response status:', response.status); // Debug log
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => null);
@@ -58,7 +59,6 @@ export default function ContactForm() {
       setIsSubmitting(false);
     }
   };
-
 
   return (
     <div className="space-y-2 grid gap-6 grid-cols-2 text-[#777777] [font-family:'Comic_Sans_MS',sans-serif]">
