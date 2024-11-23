@@ -14,35 +14,26 @@ export default function ContactForm() {
     e.preventDefault();
     setIsSubmitting(true);
     setStatus('Sending...');
-
+  
     try {
-      // Using absolute URL to avoid CORS issues
-      const apiUrl = `${process.env.NEXT_PUBLIC_API_URL || ''}/api/contact`;
-      
-      console.log('Sending request to:', apiUrl);
-
-      const response = await fetch(apiUrl, {
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json',
         },
-        credentials: 'same-origin', // for same-origin requests
         body: JSON.stringify({ 
           name, 
           email, 
           message 
         }),
       });
-
-      console.log('Response status:', response.status);
-
+  
       const data = await response.json();
       
       if (!response.ok) {
         throw new Error(data.error || `HTTP error! status: ${response.status}`);
       }
-
+  
       setStatus('Message sent successfully!');
       // Reset form
       setName('');
@@ -50,9 +41,7 @@ export default function ContactForm() {
       setMessage('');
     } catch (error) {
       console.error('Contact form error:', error);
-      setStatus(
-        error.message || 'An error occurred. Please try again.'
-      );
+      setStatus(error.message || 'An error occurred. Please try again.');
     } finally {
       setIsSubmitting(false);
     }

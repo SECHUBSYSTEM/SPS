@@ -2,43 +2,35 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
-// Error handling for missing API key
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+};
+
 if (!process.env.RESEND_API_KEY) {
   throw new Error('Missing RESEND_API_KEY environment variable');
 }
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-// Add OPTIONS handler for CORS preflight
 export async function OPTIONS() {
-  return NextResponse.json(
-    {},
-    {
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'POST, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type, Accept',
-        'Access-Control-Max-Age': '86400',
-      },
-    }
-  );
+  return NextResponse.json({}, { headers: corsHeaders });
 }
 
 export async function POST(request) {
-  try {
-    // Add CORS headers to the response
-    const headers = {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Accept',
-    };
+  // Handle preflight request
+  if (request.method === 'OPTIONS') {
+    return NextResponse.json({}, { headers: corsHeaders });
+  }
 
+  try {
     const { name, email, message } = await request.json();
 
     if (!name || !email || !message) {
       return NextResponse.json(
         { error: 'Name, email, and message are required' },
-        { status: 400, headers }
+        { status: 400, headers: corsHeaders }
       );
     }
 
@@ -59,26 +51,19 @@ export async function POST(request) {
     if (error) {
       return NextResponse.json(
         { error: error.message },
-        { status: 400, headers }
+        { status: 400, headers: corsHeaders }
       );
     }
 
     return NextResponse.json(
       { message: 'Email sent successfully', data },
-      { status: 200, headers }
+      { status: 200, headers: corsHeaders }
     );
   } catch (error) {
     console.error('Error sending email:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
-      { 
-        status: 500,
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'POST, OPTIONS',
-          'Access-Control-Allow-Headers': 'Content-Type, Accept',
-        }
-      }
+      { status: 500, headers: corsHeaders }
     );
   }
 }
