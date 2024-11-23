@@ -11,7 +11,7 @@ export default function ContactForm() {
   const [status, setStatus] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -64,7 +64,7 @@ export default function ContactForm() {
             <span className="font-bold pr-2.5">Mobile:</span> 0402 00 5522
           </p>
           <p className="text-sm">
-            <span className="font-bold pr-4">Email:</span> Rod@served.net.au
+            <span className="font-bold pr-4">Email:</span> Rod.com.au@gmail.com.au
           </p>
           <p className="text-sm">
             <span className="font-bold">Website:</span> www.served.net.au
