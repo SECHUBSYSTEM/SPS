@@ -26,7 +26,10 @@ export async function POST(request) {
       subject: `New Contact Form Message from ${name}`,
       html: `
         <h2>New Contact Form Submission</h2>
-        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Name:</stron        {
+          "debug.javascript.codelens.npmScripts": "all",
+          "debug.allowBreakpointsEverywhere": true
+        }g> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
         <p><strong>Message:</strong></p>
         <p>${message}</p>
